@@ -1,5 +1,5 @@
 {
-  "name": "webpack",
+  "name": "webpack-text",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^5.18.0"
+    "webpack": "^5.18.0",
+    "webpack-cli": "^4.4.0"
   },
   "dependencies": {
     "jquery": "^3.5.1"
