@@ -1,7 +1,8 @@
 /**
  * 入口文件
- * 开发环境： webpack ./src/main.js -o ./build/a.js --mode=development
  */
+
+import './src/index.less'
 
  function add(x,y){
      return x+y
