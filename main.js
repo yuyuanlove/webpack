@@ -3,6 +3,7 @@
  */
 
 import './src/index.less'
+import './static/font/iconfont.css'
 
  function add(x,y){
      return x+y
