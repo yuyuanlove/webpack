@@ -32,7 +32,11 @@ module.exports = {
                 loader: 'html-loader' //处理html中的img，才能被url-loader处理
             },
             {
-                exclude: /\.(css|less|jpg|png|gif|html)$/
+                exclude: /\.(css|less|jpg|png|gif|html|js)$/, //打包其他资源
+                loader: 'file-loader',
+                options:{
+                    name:'[hash:10].[ext]'
+                }
             }
         ]
     },
@@ -43,5 +47,12 @@ module.exports = {
         })
     ],
     //模式
-    mode: 'development'
+    mode: 'development',
+    //自动编译，自动打开浏览器，自动刷新浏览器；只会在内存中编译打包，不会有任何输出；启动指令:npx webpack-dev-server
+    devServer: {
+        contentBase: resolve(__dirname,'build'), //运行的根路径
+        compress: true , //启动gzip压缩
+        port: 3000,
+        open:true
+    }
 }
