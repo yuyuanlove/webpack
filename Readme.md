@@ -1,3 +1,3 @@
 ### 1.npm init
-### 2. npm i webpack --save-dev
+### 2. npm i webpack webpack-cli --save-dev
 #  

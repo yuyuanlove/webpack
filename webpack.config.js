@@ -4,9 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry: './main.js',
     output: {
-        filename: 'built.js',
+        filename: 'js/built.js',
         path: resolve(__dirname,'build'),
-        publicPath: './'
+        publicPath: '/'
     },
     //loader配置
     module:{
@@ -24,7 +24,9 @@ module.exports = {
                 test: /\.(jpg|png|gif)$/,
                 loader: 'url-loader', //url-loader file-loader
                 options:{
-                    limit: 15*1024 //图片小于15kb，就会被base64处理，可以减少请求，但是体积会变大(请求速度慢)，可以8～12kb
+                    limit: 15*1024, //图片小于15kb，就会被base64处理，可以减少请求，但是体积会变大(请求速度慢)，可以8～12kb
+                    outputPath:'imgs',
+                    name: '[hash:10].[ext]'
                 }
             },
             {
@@ -35,7 +37,8 @@ module.exports = {
                 exclude: /\.(css|less|jpg|png|gif|html|js)$/, //打包其他资源
                 loader: 'file-loader',
                 options:{
-                    name:'[hash:10].[ext]'
+                    name:'[hash:10].[ext]',
+                    outputPath: 'resource'
                 }
             }
         ]
@@ -43,7 +46,7 @@ module.exports = {
     //插件配置
     plugins:[
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: 'index.html'
         })
     ],
     //模式
