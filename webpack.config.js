@@ -1,6 +1,9 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+//提取css为单独文件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 module.exports = {
     entry: './main.js',
     output: {
@@ -14,11 +17,20 @@ module.exports = {
             //详细的loader配置‘
             {
                 test: /\.css$/,
-                use:[ 'style-loader','css-loader' ]
+                use:[ 
+                    // 'style-loader',
+                    // 取代style-loader，提取js中的css为单独文件
+                    MiniCssExtractPlugin.loader,
+                    'css-loader' 
+                ]
             },
             {
                 test: /\.less$/,
-                use:['style-loader','css-loader','less-loader']
+                use:[
+                    'style-loader',
+                    'css-loader',
+                    'less-loader'
+                ]
             },
             {
                 test: /\.(jpg|png|gif)$/,
@@ -47,6 +59,10 @@ module.exports = {
     plugins:[
         new HtmlWebpackPlugin({
             template: 'index.html'
+        }),
+        new MiniCssExtractPlugin({
+            //设置输出的文件路径以及名称
+            filename: 'css/index.css'
         })
     ],
     //模式

@@ -3,6 +3,7 @@
  */
 
 import './src/index.less'
+import './src/index.css'
 import './static/font/iconfont.css'
 import './src/index'
 
