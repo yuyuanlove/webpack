@@ -10,14 +10,15 @@ const postcssPresetEnv = require('postcss-preset-env')
 process.env.NODE_ENV = "development"
 
 //压缩css
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+// const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
+    target: 'web',
     entry: './main.js',
     output: {
-        filename: 'js/built.js',
+        filename: 'bundle.js',
         path: resolve(__dirname,'build'),
-        publicPath: './'
+        publicPath: '/'
     },
     //loader配置
     module:{
@@ -77,7 +78,7 @@ module.exports = {
     //插件配置
     plugins:[
         new HtmlWebpackPlugin({
-            template: 'index.html'
+            template: './index.html'
         }),
         new MiniCssExtractPlugin({
             //设置输出的文件路径以及名称
@@ -86,10 +87,10 @@ module.exports = {
         // new OptimizeCssAssetsPlugin()
     ],
     //模式
-    mode: 'development',
+    mode: 'development', //生产环境下js和html会被自动压缩了
     //自动编译，自动打开浏览器，自动刷新浏览器；只会在内存中编译打包，不会有任何输出；启动指令:npx webpack-dev-server
     devServer: {
-        contentBase: resolve(__dirname,'build'), //运行的根路径
+        contentBase: './build', //运行的根路径
         compress: true , //启动gzip压缩
         port: 3000,
         open:true
