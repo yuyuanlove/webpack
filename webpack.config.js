@@ -14,7 +14,7 @@ process.env.NODE_ENV = "development"
 
 module.exports = {
     target: 'web',
-    entry: './main.js',
+    entry: ['./main.js','./index.html'], //html文件热更新
     output: {
         filename: 'bundle.js',
         path: resolve(__dirname,'build'),
@@ -93,6 +93,8 @@ module.exports = {
         contentBase: './build', //运行的根路径
         compress: true , //启动gzip压缩
         port: 3000,
-        open:true
-    }
+        open:true,
+        hot: true, //HMR 只在生产环境，js和html不能使用
+    },
+    devtool: 'eval-source-map', // 生产source-map
 }
