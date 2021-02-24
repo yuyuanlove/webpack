@@ -25,53 +25,57 @@ module.exports = {
         rules:[
             //详细的loader配置‘
             {
-                test: /\.css$/,
-                use:[ 
-                    // 'style-loader',
-                    // 取代style-loader，提取js中的css为单独文件
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    // 兼容性处理 postcss,修改相关配置
+                oneOf: [ //匹配到loader之后，就退出相当于break
                     {
-                        loader: 'postcss-loader',
-                        options:{
-                            postcssOptions: {
-                                plugins:[
-                                    postcssPresetEnv()
-                                ]
+                        test: /\.css$/,
+                        use:[ 
+                            // 'style-loader',
+                            // 取代style-loader，提取js中的css为单独文件
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                            // 兼容性处理 postcss,修改相关配置
+                            {
+                                loader: 'postcss-loader',
+                                options:{
+                                    postcssOptions: {
+                                        plugins:[
+                                            postcssPresetEnv()
+                                        ]
+                                    }
+                                }
                             }
+                        ]
+                    },
+                    {
+                        test: /\.less$/,
+                        use:[
+                            'style-loader',
+                            'css-loader',
+                            'less-loader'
+                        ]
+                    },
+                    {
+                        test: /\.(jpg|png|gif)$/,
+                        loader: 'url-loader', //url-loader file-loader
+                        options:{
+                            limit: 15*1024, //图片小于15kb，就会被base64处理，可以减少请求，但是体积会变大(请求速度慢)，可以8～12kb
+                            outputPath:'imgs',
+                            name: '[hash:10].[ext]'
+                        }
+                    },
+                    {
+                        test: /\.html$/, 
+                        loader: 'html-loader' //处理html中的img，才能被url-loader处理
+                    },
+                    {
+                        exclude: /\.(css|less|jpg|png|gif|html|js)$/, //打包其他资源
+                        loader: 'file-loader',
+                        options:{
+                            name:'[hash:10].[ext]',
+                            outputPath: 'resource'
                         }
                     }
                 ]
-            },
-            {
-                test: /\.less$/,
-                use:[
-                    'style-loader',
-                    'css-loader',
-                    'less-loader'
-                ]
-            },
-            {
-                test: /\.(jpg|png|gif)$/,
-                loader: 'url-loader', //url-loader file-loader
-                options:{
-                    limit: 15*1024, //图片小于15kb，就会被base64处理，可以减少请求，但是体积会变大(请求速度慢)，可以8～12kb
-                    outputPath:'imgs',
-                    name: '[hash:10].[ext]'
-                }
-            },
-            {
-                test: /\.html$/, 
-                loader: 'html-loader' //处理html中的img，才能被url-loader处理
-            },
-            {
-                exclude: /\.(css|less|jpg|png|gif|html|js)$/, //打包其他资源
-                loader: 'file-loader',
-                options:{
-                    name:'[hash:10].[ext]',
-                    outputPath: 'resource'
-                }
             }
         ]
     },
