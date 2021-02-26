@@ -8,7 +8,7 @@ import './static/font/iconfont.css'
 import './src/index'
 import print from './src/print'
 
- function add(x,y){
+const add = (x,y) => {
      return x+y
  }
 

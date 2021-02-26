@@ -16,7 +16,7 @@ module.exports = {
     target: 'web',
     entry: ['./main.js','./index.html'], //html文件热更新
     output: {
-        filename: 'bundle.js',
+        filename: 'js/built.js',
         path: resolve(__dirname,'build'),
         publicPath: '/'
     },
@@ -53,6 +53,11 @@ module.exports = {
                             'css-loader',
                             'less-loader'
                         ]
+                    },
+                    {
+                        test:/\.js$/, //js 的兼容性处理
+                        exclude: /node_modules/,
+                        loader: 'babel-loader',
                     },
                     {
                         test: /\.(jpg|png|gif)$/,
@@ -100,5 +105,5 @@ module.exports = {
         open:true,
         hot: true, //HMR 只在生产环境，js和html不能使用
     },
-    devtool: 'eval-source-map', // 生产source-map
+    //devtool: 'eval-source-map', // 生产source-map
 }

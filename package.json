@@ -10,6 +10,11 @@
   "author": "lxy",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.13.1",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.13.5",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3.9.0",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
     "html-loader": "^1.3.2",
@@ -31,7 +36,9 @@
   },
   "browserslist": {
     "development": [
-      "last 1 chrome version"
+      "> 1%",
+      "last 2 versions",
+      "not ie <= 8"
     ],
     "production": [
       ">0.2%",

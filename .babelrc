@@ -1,0 +1,31 @@
+/*
+    @babel/preset-env 只能处理基本的js兼容性问题，不能处理peomise相关 
+    @babel/polyfill 能够处理全部的js兼容性 只需要引入即可，缺点：引入所以有兼容性的文件，所以打包后文件变大
+    core-js 按需加载需要处理兼容性的库
+*/
+// {
+//     "presets": ["@babel/preset-env"] 
+// }
+
+//core-js方法
+{
+    "presets":[
+        [
+            "@babel/preset-env",{
+                "useBuiltIns":"usage",
+                "corejs":{
+                //core-js的版本
+                    "version":3
+                },
+                //需要兼容的浏览器
+                "targets":{
+                    "chrome":"60",
+                    "firefox":"60",
+                    "ie":"9",
+                    "safari":"10",
+                    "edge":"17"
+                }
+            }
+        ]
+    ]
+}

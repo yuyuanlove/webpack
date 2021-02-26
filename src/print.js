@@ -1,3 +1,4 @@
+//HMR test
 function print(){
     const aa = 'hello print～1'
     console.log(aa)
