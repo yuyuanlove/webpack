@@ -16,7 +16,7 @@ module.exports = {
     target: 'web',
     entry: ['./main.js','./index.html'], //html文件热更新
     output: {
-        filename: 'js/built.js',
+        filename: 'js/built.[hash:10].js',
         path: resolve(__dirname,'build'),
         publicPath: '/'
     },
@@ -58,6 +58,9 @@ module.exports = {
                         test:/\.js$/, //js 的兼容性处理
                         exclude: /node_modules/,
                         loader: 'babel-loader',
+                        options:{
+                            "cacheDirectory": true,  //第二次构建会读取缓存
+                        }
                     },
                     {
                         test: /\.(jpg|png|gif)$/,
@@ -91,12 +94,12 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             //设置输出的文件路径以及名称
-            filename: 'css/index.css'
+            filename: 'css/index.[hash:10].css'
         }),
         // new OptimizeCssAssetsPlugin()
     ],
     //模式
-    mode: 'development', //生产环境下js和html会被自动压缩了
+    mode: 'production', //生产环境下js和html会被自动压缩了
     //自动编译，自动打开浏览器，自动刷新浏览器；只会在内存中编译打包，不会有任何输出；启动指令:npx webpack-dev-server
     devServer: {
         contentBase: './build', //运行的根路径

@@ -13,9 +13,10 @@ const add = (x,y) => {
  }
 
  console.log(add(1,1))
- console.log(242)
+ console.log(243)
  print()
 
+ //HMR
  if(module.hot){ //非入口文件的js实现模块热替换
      console.log(111)
      module.hot.accept('./src/print.js',() => {
