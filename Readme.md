@@ -16,5 +16,7 @@
 
 
 > 缓存 
-1.bable缓存
-2.hash缓存
+1.babel缓存  babel-loader中"cacheDirectory": true, 第二次打包更快
+2.hash缓存 //打包只生成一个hash值，重新导致所以的缓存失效
+3.ckunkhash :根据chunk生成hash,理解chunk，js中引入css，css改变js也会变更等
+4.contenthash: 根据文件的内容生成hash -> 让上线代码的性能优化

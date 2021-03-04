@@ -16,7 +16,7 @@ module.exports = {
     target: 'web',
     entry: ['./main.js','./index.html'], //html文件热更新
     output: {
-        filename: 'js/built.[hash:10].js',
+        filename: 'js/built.[contenthash:10].js',
         path: resolve(__dirname,'build'),
         publicPath: '/'
     },
@@ -49,8 +49,19 @@ module.exports = {
                     {
                         test: /\.less$/,
                         use:[
-                            'style-loader',
+                            MiniCssExtractPlugin.loader,
                             'css-loader',
+                            // 兼容性处理 postcss,修改相关配置
+                            {
+                                loader: 'postcss-loader',
+                                options:{
+                                    postcssOptions: {
+                                        plugins:[
+                                            postcssPresetEnv()
+                                        ]
+                                    }
+                                }
+                            },
                             'less-loader'
                         ]
                     },
@@ -68,7 +79,7 @@ module.exports = {
                         options:{
                             limit: 15*1024, //图片小于15kb，就会被base64处理，可以减少请求，但是体积会变大(请求速度慢)，可以8～12kb
                             outputPath:'imgs',
-                            name: '[hash:10].[ext]'
+                            // name: '[ckunkhash:10].[ext]'
                         }
                     },
                     {
@@ -79,7 +90,7 @@ module.exports = {
                         exclude: /\.(css|less|jpg|png|gif|html|js)$/, //打包其他资源
                         loader: 'file-loader',
                         options:{
-                            name:'[hash:10].[ext]',
+                            // name:'[ckunkhash:10].[ext]',
                             outputPath: 'resource'
                         }
                     }
@@ -94,7 +105,7 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             //设置输出的文件路径以及名称
-            filename: 'css/index.[hash:10].css'
+            filename: 'css/index.[contenthash:10].css'
         }),
         // new OptimizeCssAssetsPlugin()
     ],
