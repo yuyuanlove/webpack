@@ -16,7 +16,7 @@ module.exports = {
     target: 'web',
     entry: ['./main.js','./index.html'], //html文件热更新
     output: {
-        filename: 'js/built.[contenthash:10].js',
+        filename: 'js/[name].[contenthash:10].js',
         path: resolve(__dirname,'build'),
         publicPath: '/'
     },
@@ -110,7 +110,7 @@ module.exports = {
         // new OptimizeCssAssetsPlugin()
     ],
     //模式
-    mode: 'production', //生产环境下js和html会被自动压缩了
+    mode: 'development', //生产环境下js和html会被自动压缩了
     //自动编译，自动打开浏览器，自动刷新浏览器；只会在内存中编译打包，不会有任何输出；启动指令:npx webpack-dev-server
     devServer: {
         contentBase: './build', //运行的根路径
@@ -120,4 +120,10 @@ module.exports = {
         hot: true, //HMR 只在生产环境，js和html不能使用
     },
     //devtool: 'eval-source-map', // 生产source-map
+    //optimization将node_modules中需要的代码单独打包成一个chunk
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
 }

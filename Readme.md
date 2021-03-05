@@ -31,6 +31,58 @@ package.json 中"sideEffects": false，都可以进行tree shaking， 可能会�
 
 解决办法： "sideEffects": ["*.css","*.less"]
 
-```
 
+# code split 
+代码分割；按需引入
+
+* enrty多入口拆分
+
+```
+ entry:{
+     index: './main.js',
+     print: './src/print.js'
+ },
+ output:{
+    filename: 'js/[name].[contenthash:10].js',
+    path: resolve(__dirname,'build'),
+    publicPath: '/'
+ }
+```
+以上配置打包查看文件变化
+
+* 方式二
+  
+新建test.js作为入口文件测试
+```
+import $ from 'jquery'
+
+cosnole.log($)
+
+console.log('splitChunk 测试')
+```
+打包发现只生成一个js，如果尝试配置文件增加optimization.splitChunks
+
+```
+//将node_modules中引入的代码单独打包问一个chunk
+
+optimization: {
+    splitChunks: {
+        chunks: 'all'
+    }
+}
+```
+发现打包后生成了两个js，实现代码分割效果，按需加载
+
+多入口多个文件引入的重复代码，会提取为一个chunk，不会重复打包
+
+* 方式三
+  
+通过js将某个文件单独打包为chunk
+```
+ //import动态导入，将某个文件单独打包
+ import(/* webpackChunkName: 'test' */'./test.js').then((res)=>{
+    res.myname()
+ }).catch((res)=>{
+    console.log('加载失败了')
+ })
 ```

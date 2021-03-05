@@ -7,8 +7,8 @@ import './src/index.css'
 import './static/font/iconfont.css'
 import './src/index'
 import print from './src/print'
-
 import { add } from './src/tree_shaking'
+
 
 // const add1 = (x,y) => {
 //      return x+y
@@ -19,6 +19,13 @@ import { add } from './src/tree_shaking'
  console.log(add(1,1))
  print()
 
+
+ //import动态导入，将某个文件单独打包
+ import(/* webpackChunkName: 'test' */'./test.js').then((res)=>{
+    res.myname()
+ }).catch((res)=>{
+    console.log('加载失败了')
+ })
 
  //HMR
  if(module.hot){ //非入口文件的js实现模块热替换
