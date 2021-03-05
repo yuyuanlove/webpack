@@ -8,13 +8,17 @@ import './static/font/iconfont.css'
 import './src/index'
 import print from './src/print'
 
-const add = (x,y) => {
-     return x+y
- }
+import { add } from './src/tree_shaking'
 
- console.log(add(1,1))
+// const add1 = (x,y) => {
+//      return x+y
+//  }
+
+//  console.log(add1(1,1))
  console.log(243)
+ console.log(add(1,1))
  print()
+
 
  //HMR
  if(module.hot){ //非入口文件的js实现模块热替换
