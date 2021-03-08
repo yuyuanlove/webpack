@@ -86,3 +86,17 @@ optimization: {
     console.log('加载失败了')
  })
 ```
+
+# 懒加载和预加载
+
+js文件的懒加载
+代码分割成功用动态引入的方式，按业务需求加载即可
+
+预加载 webpackPrefetch: true
+```
+ import(/* webpackChunkName: 'test',webpackPrefetch: true */'./test.js').then((res)=>{
+    res.myname()
+ }).catch((res)=>{
+    console.log('加载失败了')
+ })
+```

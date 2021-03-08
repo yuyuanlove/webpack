@@ -21,11 +21,15 @@ import { add } from './src/tree_shaking'
 
 
  //import动态导入，将某个文件单独打包
- import(/* webpackChunkName: 'test' */'./test.js').then((res)=>{
-    res.myname()
- }).catch((res)=>{
-    console.log('加载失败了')
- })
+ //结合预加载
+ document.getElementById('btn').onclick = function(){
+    import(/* webpackChunkName: 'test',webpackPrefetch:true */'./test.js').then((res)=>{
+        res.myname()
+     }).catch((res)=>{
+        console.log('加载失败了')
+     })
+}
+
 
  //HMR
  if(module.hot){ //非入口文件的js实现模块热替换
