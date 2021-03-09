@@ -2,8 +2,8 @@
  * 入口文件
  */
 
-import './src/index.less'
-import './src/index.css'
+import '@/index.less'
+import '@/index.css'
 import './static/font/iconfont.css'
 import './src/index'
 import print from './src/print'
@@ -13,12 +13,11 @@ import { add } from './src/tree_shaking'
 // const add1 = (x,y) => {
 //      return x+y
 //  }
-
 //  console.log(add1(1,1))
+
  console.log(243)
  console.log(add(1,1))
  print()
-
 
  //import动态导入，将某个文件单独打包
  //结合预加载

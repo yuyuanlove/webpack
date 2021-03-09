@@ -1,16 +1,18 @@
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+//打包先清除build文件
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
 //提取css为单独文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 //处理css的兼容性
 const postcssPresetEnv = require('postcss-preset-env')
-
 process.env.NODE_ENV = "development"
 
 //压缩css
-// const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
     target: 'web',
@@ -68,10 +70,19 @@ module.exports = {
                     {
                         test:/\.js$/, //js 的兼容性处理
                         exclude: /node_modules/,
-                        loader: 'babel-loader',
-                        options:{
-                            "cacheDirectory": true,  //第二次构建会读取缓存
-                        }
+                        use: [
+                             //开启多进程打包,启动大概600ms，通信也有开销
+                             //只有工作消耗较长，才需要多进程打包
+                            // 'thread-loader',
+                            {
+                                loader: 'babel-loader',
+                                options:{
+                                    "cacheDirectory": true,  //第二次构建会读取缓存
+                                }
+                            }
+                            
+                        ]
+
                     },
                     {
                         test: /\.(jpg|png|gif)$/,
@@ -107,10 +118,11 @@ module.exports = {
             //设置输出的文件路径以及名称
             filename: 'css/index.[contenthash:10].css'
         }),
-        // new OptimizeCssAssetsPlugin()
+        new CleanWebpackPlugin(),
+        new OptimizeCssAssetsPlugin()
     ],
     //模式
-    mode: 'development', //生产环境下js和html会被自动压缩了
+    mode: 'production', //生产环境下js和html会被自动压缩了
     //自动编译，自动打开浏览器，自动刷新浏览器；只会在内存中编译打包，不会有任何输出；启动指令:npx webpack-dev-server
     devServer: {
         contentBase: './build', //运行的根路径
@@ -124,6 +136,12 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks: 'all'
+        }
+    },
+    resolve: {
+        // 设置路径别名
+        alias:{
+            '@': resolve(__dirname,'src'),
         }
     }
 }

@@ -5,14 +5,36 @@
 
 * 开发环境
 > 优化打包构建速度(HMR)
-> 1.HMR
-> 2.source-map:提供源代码到构建后的映射，
 
+1.HMR
 > 优化代码调试 
+
+2.source-map:提供源代码到构建后的映射，
+
+
 
 * 生产环境
 > 优化打包构建速度
+> 
+1.oneof
+
+2.babel缓存
+
+3.多进程打包
+
+4.externals
+
+5.dll
+
 > 优化代码运行的性能
+
+1.缓存(hash)
+
+2.tree shaking
+
+3.code split
+
+4.懒加载和预加载
 
 
 > 缓存 
@@ -99,4 +121,39 @@ js文件的懒加载
  }).catch((res)=>{
     console.log('加载失败了')
  })
+```
+
+# pwa
+渐进式网络开发应用模式
+
+# 多进程打包
+
+打包速度取决于使用场景是否正确，拒绝滥用
+
+npm i thread-loader -D
+```
+{
+    test:/\.js$/, //js 的兼容性处理
+    exclude: /node_modules/,
+    use: [
+        //开启多进程打包,启动大概600ms，通信也有开销
+        //只有工作消耗较长，才需要多进程打包
+        'thread-loader', //开启多进程打包
+        {
+            loader: 'babel-loader',
+            options:{
+                "cacheDirectory": true,  //第二次构建会读取缓存
+            }
+        }
+    ]
+},
+```
+
+# externals
+
+拒绝某些文件被打包
+```
+externals: {
+    jquery: 'jQuery'
+}
 ```
