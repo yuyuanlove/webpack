@@ -1,8 +1,4 @@
-import $ from 'jquery'
+import { a } from './b.js'
 
-
-$('.title').click(() => {
-	console.log('good')
-})
-
+console.log(a.name)
 

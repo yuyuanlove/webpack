@@ -5,7 +5,6 @@
 import '@/index.less'
 import '@/index.css'
 import './static/font/iconfont.css'
-import './src/index'
 import print from './src/print'
 import { add } from './src/tree_shaking'
 
