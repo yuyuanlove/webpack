@@ -1,6 +1,11 @@
 ### 1.npm init
 ### 2. npm i webpack webpack-cli --save-dev
 
+# 随笔-笔记-不准确，请不要参考
+
+
+# 笔记请看：https://juejin.cn/post/6923918805722726413/#heading-22
+
 # 性能优化
 
 * 开发环境
