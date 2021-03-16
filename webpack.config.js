@@ -90,7 +90,7 @@ module.exports = {
                         options:{
                             limit: 15*1024, //图片小于15kb，就会被base64处理，可以减少请求，但是体积会变大(请求速度慢)，可以8～12kb
                             outputPath:'imgs',
-                            // name: '[ckunkhash:10].[ext]'
+                            name: '[ckunkhash:10].[ext]'
                         }
                     },
                     {
@@ -101,7 +101,7 @@ module.exports = {
                         exclude: /\.(css|less|jpg|png|gif|html|js)$/, //打包其他资源
                         loader: 'file-loader',
                         options:{
-                            // name:'[ckunkhash:10].[ext]',
+                            name:'[ckunkhash:10].[ext]',
                             outputPath: 'resource'
                         }
                     }
